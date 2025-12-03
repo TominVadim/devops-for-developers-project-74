@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   app:
-    build: .
-    volumes:
-      - ./app:/app
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    image: tominvadim/devops-for-developers-project-74  # Замени tominvadim на свой логин Docker Hub
     command: make test

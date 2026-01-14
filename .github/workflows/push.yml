@@ -11,6 +11,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose --version
+
       - name: Run tests with Docker Compose
         run: make ci
 
@@ -20,6 +26,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -34,5 +45,3 @@ jobs:
           file: ./Dockerfile.production
           push: true
           tags: tominvadim/devops-for-developers-project-74:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
